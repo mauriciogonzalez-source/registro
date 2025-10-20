@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - 3° Simposio Día Mundial de la Alimentación</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="300" viewBox="0 0 800 300"><rect width="800" height="300" fill="%230d5e27"/><text x="400" y="150" font-family="Arial" font-size="24" fill="white" text-anchor="middle" dominant-baseline="middle">IMAGEN SIMPOSIO</text></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 5px solid #e67e22;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .header .slogan {
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 10px;
+            color: #f1c40f;
+        }
+        
+        .header .university {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .form-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #0d5e27;
+        }
+        
+        .form-section h2 {
+            color: #0d5e27;
+            border-bottom: 2px solid #0d5e27;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .workshop-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .workshop-item {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .workshop-item:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .workshop-item.disponible {
+            border-left: 4px solid #4caf50;
+        }
+        
+        .workshop-item.casi-lleno {
+            border-left: 4px solid #ff9800;
+        }
+        
+        .workshop-item.lleno {
+            background-color: #ffe6e6;
+            border-color: #ff9999;
+            border-left: 4px solid #f44336;
+        }
+        
+        .cupo {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .cupo.lleno {
+            color: #cc0000;
+            font-weight: bold;
+        }
+        
+        .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        
+        .badge.disponible {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .badge.casi-lleno {
+            background: #ff9800;
+            color: white;
+        }
+        
+        .badge.lleno {
+            background: #f44336;
+            color: white;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-fill.disponible {
+            background: #4caf50;
+        }
+        
+        .progress-fill.casi-lleno {
+            background: #ff9800;
+        }
+        
+        .progress-fill.lleno {
+            background: #f44336;
+        }
+        
+        .terms {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f0f7ff;
+            border-radius: 5px;
+            border-left: 4px solid #0d5e27;
+        }
+        
+        .terms h3 {
+            color: #0d5e27;
+            margin-bottom: 10px;
+        }
+        
+        .terms ul {
+            padding-left: 20px;
+        }
+        
+        .terms li {
+            margin-bottom: 8px;
+        }
+        
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #0d5e27;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        
+        .btn-submit:hover {
+            background-color: #0a4a1f;
+        }
+        
+        .btn-submit:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        #contador-talleres {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-weight: bold;
+            text-align: center;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .certificate {
+            display: none;
+            background: white;
+            padding: 40px;
+            margin: 20px auto;
+            max-width: 800px;
+            border: 2px solid #0d5e27;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .certificate-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #0d5e27;
+            padding-bottom: 20px;
+        }
+        
+        .certificate-body {
+            margin: 30px 0;
+            line-height: 1.8;
+        }
+        
+        .certificate-footer {
+            margin-top: 40px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+        
+        .signature-area {
+            margin-top: 60px;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .signature-line {
+            border-top: 1px solid #333;
+            width: 200px;
+            text-align: center;
+            padding-top: 5px;
+        }
+        
+        .btn-print {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background: #0d5e27;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .stats-panel {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #0d5e27;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #0d5e27;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .alert-info {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .workshop-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .signature-area {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Registro al 3° Simposio del Día Mundial de la Alimentación</h1>
+        <p class="slogan">"Mano de la mano por unos alimentos y un futuro mejores"</p>
+        <p class="university">Universidad Tecnológica de Tehuacán</p>
+    </div>
+    
+    <div class="container">
+        <div class="stats-panel">
+            <h3>Estadísticas de Inscripción</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" id="total-inscritos">0</div>
+                    <div class="stat-label">Total Inscritos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="talleres-disponibles">10</div>
+                    <div class="stat-label">Talleres Disponibles</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="talleres-llenos">0</div>
+                    <div class="stat-label">Talleres Llenos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="cupos-totales">0/300</div>
+                    <div class="stat-label">Cupos Ocupados/Total</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="alert-info">
+            <strong>📢 Información Importante:</strong> Todos los talleres están disponibles con capacidad máxima de 30 estudiantes cada uno. 
+            Selecciona 2 talleres de tu preferencia para el día 23 de octubre.
+        </div>
+        
+        <form id="registrationForm">
+            <div class="form-section">
+                <h2>Datos Personales</h2>
+                
+                <div class="form-group">
+                    <label for="nombre">Nombre completo:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="matricula">Matrícula:</label>
+                    <input type="text" id="matricula" name="matricula" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="carrera">Carrera:</label>
+                    <select id="carrera" name="carrera" required>
+                        <option value="">Selecciona tu carrera</option>
+                        <option value="Ingeniería en Alimentos">Ingeniería en Alimentos</option>
+                        <option value="Nutrición">Nutrición</option>
+                        <option value="Agricultura Sustentable">Agricultura Sustentable</option>
+                        <option value="Gastronomía">Gastronomía</option>
+                        <option value="Biotecnología">Biotecnología</option>
+                        <option value="Otra">Otra</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="semestre">Semestre:</label>
+                    <select id="semestre" name="semestre" required>
+                        <option value="">Selecciona tu semestre</option>
+                        <option value="1">1° Semestre</option>
+                        <option value="2">2° Semestre</option>
+                        <option value="3">3° Semestre</option>
+                        <option value="4">4° Semestre</option>
+                        <option value="5">5° Semestre</option>
+                        <option value="6">6° Semestre</option>
+                        <option value="7">7° Semestre</option>
+                        <option value="8">8° Semestre</option>
+                        <option value="9">9° Semestre</option>
+                        <option value="10">10° Semestre</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Correo electrónico:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="telefono">Teléfono:</label>
+                    <input type="tel" id="telefono" name="telefono" required>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Selección de Talleres - 23 de Octubre</h2>
+                <p><strong>INSTRUCCIONES:</strong> Selecciona DOS talleres de tu interés. Cada taller tiene un límite máximo de 30 estudiantes.</p>
+                
+                <div id="contador-talleres">Talleres seleccionados: 0/2</div>
+                
+                <div class="workshop-list" id="talleres">
+                    <!-- Los talleres se cargarán dinámicamente con JavaScript -->
+                </div>
+            </div>
+            
+            <div class="terms">
+                <h3>Términos y Condiciones</h3>
+                <ul>
+                    <li>Al registrar mi participación, acepto que mi asistencia será monitoreada mediante listas de asistencia</li>
+                    <li>Para obtener la constancia de participación, debo cubrir entre el 85% y 90% de asistencia total al evento</li>
+                    <li>La constancia se generará automáticamente una vez culminado el simposio</li>
+                    <li>Podré imprimir mi constancia de participación desde la plataforma</li>
+                    <li>Los talleres se cerrarán automáticamente al alcanzar 30 participantes</li>
+                    <li>La Universidad se reserva el derecho de modificar la programación si es necesario</li>
+                </ul>
+                
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="fecha">Fecha de registro:</label>
+                    <input type="date" id="fecha" name="fecha" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="firma">Firma del estudiante (escribe tu nombre completo):</label>
+                    <input type="text" id="firma" name="firma" required>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn-submit">Enviar Registro</button>
+        </form>
+        
+        <!-- Constancia de Participación -->
+        <div id="certificate" class="certificate">
+            <div class="certificate-header">
+                <h2>La Universidad Tecnológica de Tehuacán</h2>
+                <p>Arq. Rafael Honorio Delgado Sasia</p>
+                <p>Rector</p>
+                <p>Dirección de Extensión Universitaria</p>
+                <p>Folio: <span id="cert-folio"></span></p>
+            </div>
+            
+            <div class="certificate-body">
+                <h3>Constancia de Participación</h3>
+                <p>Se otorga la presente constancia a:</p>
+                <h4 id="cert-nombre"></h4>
+                <p>Por su participación en el <strong>3° Simposio Día Mundial de la Alimentación</strong></p>
+                <p>Realizado los días 23 y 24 de Octubre</p>
+                <p>Con el eslogan: "Mano de la mano por unos alimentos y un futuro mejores"</p>
+                
+                <div style="margin: 30px 0;">
+                    <p>Talleres en los que participó:</p>
+                    <ul id="cert-talleres" style="list-style-type: none; padding: 0;"></ul>
+                </div>
+                
+                <p>El estudiante participó en las actividades programadas para el simposio</p>
+            </div>
+            
+            <div class="certificate-footer">
+                <p>Curso – Taller: <strong>"Introducción a los sistemas eléctricos sustentables"</strong></p>
+                <p>Responsable: Mtro. Sergio Martínez Bazán</p>
+                
+                <div class="signature-area">
+                    <div class="signature-line">
+                        <p>Firma del Responsable</p>
+                    </div>
+                    <div class="signature-line">
+                        <p>Firma del Rector</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn-print" onclick="window.print()">Imprimir Constancia</button>
+        </div>
+        
+        <div class="footer">
+            <p>Universidad Tecnológica de Tehuacán - 3° Simposio Día Mundial de la Alimentación</p>
+            <p>© 2023 - Todos los derechos reservados</p>
+        </div>
+    </div>
+    
+    <script>
+        // Datos de los talleres - TODOS HABILITADOS CON CAPACIDAD MÁXIMA DE 30
+        const talleres = [
+            { id: 1, nombre: "Alimentación adecuada y sostenible para la salud y rendimiento físico", cupo: 30, inscritos: 0 },
+            { id: 2, nombre: "Etiquetado nutricional", cupo: 30, inscritos: 0 },
+            { id: 3, nombre: "Elaboración de cremas Cosméticas", cupo: 30, inscritos: 0 },
+            { id: 4, nombre: "Fundamentos de la Extracción Fitoquímica", cupo: 30, inscritos: 0 },
+            { id: 5, nombre: "Diseño de etiquetas para productos alimenticios", cupo: 30, inscritos: 0 },
+            { id: 6, nombre: "Producción de hongo seta (Pleurotus ostreatus)", cupo: 30, inscritos: 0 },
+            { id: 7, nombre: "¡No más Word! Escribe tu Tesis en LaTeX, un Editor de Textos Científicos", cupo: 30, inscritos: 0 },
+            { id: 8, nombre: "Determinación de vida de anaquel acelerada", cupo: 30, inscritos: 0 },
+            { id: 9, nombre: "Cálculo dietosintético y distribución de macronutrientes", cupo: 30, inscritos: 0 },
+            { id: 10, nombre: "Taller de Elaboración de Helado", cupo: 30, inscritos: 0 }
+        ];
+
+        // Almacenamiento local para estudiantes registrados
+        let estudiantesRegistrados = JSON.parse(localStorage.getItem('estudiantesSimposio')) || [];
+        let totalInscritos = estudiantesRegistrados.length;
+
+        // Inicializar inscritos desde localStorage
+        function inicializarInscritos() {
+            estudiantesRegistrados.forEach(estudiante => {
+                estudiante.talleresSeleccionados.forEach(tallerId => {
+                    const taller = talleres.find(t => t.id === tallerId);
+                    if (taller && taller.inscritos < taller.cupo) {
+                        taller.inscritos++;
+                    }
+                });
+            });
+        }
+
+        // Cargar talleres en la interfaz
+        const talleresContainer = document.getElementById('talleres');
+        
+        function cargarTalleres() {
+            talleresContainer.innerHTML = '';
+            
+            let talleresDisponibles = 0;
+            let talleresLlenos = 0;
+            let cuposOcupados = 0;
+            
+            talleres.forEach(taller => {
+                const disponible = taller.inscritos < taller.cupo;
+                const porcentaje = (taller.inscritos / taller.cupo) * 100;
+                const cuposDisponibles = taller.cupo - taller.inscritos;
+                const cupoTexto = `Cupo: ${taller.inscritos}/${taller.cupo} (${cuposDisponibles} disponibles)`;
+                
+                // Determinar estado del taller
+                let estado = 'disponible';
+                let badgeTexto = 'DISPONIBLE';
+                let badgeClase = 'disponible';
+                let progresoClase = 'disponible';
+                
+                if (porcentaje >= 80 && porcentaje < 100) {
+                    estado = 'casi-lleno';
+                    badgeTexto = 'CASI LLENO';
+                    badgeClase = 'casi-lleno';
+                    progresoClase = 'casi-lleno';
+                } else if (porcentaje >= 100) {
+                    estado = 'lleno';
+                    badgeTexto = 'LLENO';
+                    badgeClase = 'lleno';
+                    progresoClase = 'lleno';
+                    talleresLlenos++;
+                } else {
+                    talleresDisponibles++;
+                }
+                
+                cuposOcupados += taller.inscritos;
+
+                const workshopItem = document.createElement('div');
+                workshopItem.className = `workshop-item ${estado}`;
+                workshopItem.id = `taller-item-${taller.id}`;
+                
+                workshopItem.innerHTML = `
+                    <span class="badge ${badgeClase}">${badgeTexto}</span>
+                    <input type="checkbox" id="taller${taller.id}" name="talleres" value="${taller.id}" 
+                        ${estado === 'lleno' ? 'disabled' : ''} 
+                        onchange="validarSeleccionTalleres()">
+                    <label for="taller${taller.id}">
+                        <strong>${taller.id}.</strong> ${taller.nombre}
+                    </label>
+                    <div class="progress-bar">
+                        <div class="progress-fill ${progresoClase}" style="width: ${Math.min(porcentaje, 100)}%"></div>
+                    </div>
+                    <div class="cupo ${estado === 'lleno' ? 'lleno' : ''}">${cupoTexto}</div>
+                    ${estado === 'lleno' ? '<div style="color: #d32f2f; font-weight: bold; margin-top: 5px;">❌ CUPO LLENO</div>' : ''}
+                `;
+                
+                talleresContainer.appendChild(workshopItem);
+            });
+            
+            // Actualizar estadísticas
+            actualizarEstadisticas(talleresDisponibles, talleresLlenos, cuposOcupados);
+            actualizarContadorTalleres();
+        }
+        
+        // Actualizar panel de estadísticas
+        function actualizarEstadisticas(disponibles, llenos, cuposOcupados) {
+            document.getElementById('total-inscritos').textContent = totalInscritos;
+            document.getElementById('talleres-disponibles').textContent = disponibles;
+            document.getElementById('talleres-llenos').textContent = llenos;
+            document.getElementById('cupos-totales').textContent = `${cuposOcupados}/300`;
+        }
+        
+        // Validar selección de talleres
+        function validarSeleccionTalleres() {
+            const talleresSeleccionados = document.querySelectorAll('input[name="talleres"]:checked');
+            
+            // Si se seleccionan más de 2, deseleccionar el último
+            if (talleresSeleccionados.length > 2) {
+                talleresSeleccionados[talleresSeleccionados.length - 1].checked = false;
+                mostrarError('Solo puedes seleccionar un máximo de 2 talleres.');
+            }
+            
+            actualizarContadorTalleres();
+        }
+        
+        // Actualizar contador de talleres seleccionados
+        function actualizarContadorTalleres() {
+            const contador = document.getElementById('contador-talleres');
+            const talleresSeleccionados = document.querySelectorAll('input[name="talleres"]:checked').length;
+            
+            contador.textContent = `Talleres seleccionados: ${talleresSeleccionados}/2`;
+            
+            // Cambiar color según la selección
+            if (talleresSeleccionados === 2) {
+                contador.style.background = '#e8f5e8';
+                contador.style.borderLeftColor = '#4caf50';
+            } else {
+                contador.style.background = '#e3f2fd';
+                contador.style.borderLeftColor = '#2196f3';
+            }
+        }
+        
+        // Mostrar mensajes de error
+        function mostrarError(mensaje) {
+            // Remover error anterior si existe
+            const errorAnterior = document.getElementById('error-mensaje');
+            if (errorAnterior) {
+                errorAnterior.remove();
+            }
+            
+            const errorElement = document.createElement('div');
+            errorElement.id = 'error-mensaje';
+            errorElement.style.cssText = `
+                background: #ffebee;
+                color: #c62828;
+                padding: 15px;
+                border-radius: 5px;
+                margin: 15px 0;
+                border-left: 4px solid #c62828;
+                font-weight: bold;
+            `;
+            errorElement.textContent = mensaje;
+            
+            document.querySelector('form').insertBefore(errorElement, document.querySelector('.btn-submit'));
+            
+            // Auto-remover después de 5 segundos
+            setTimeout(() => {
+                if (errorElement.parentNode) {
+                    errorElement.remove();
+                }
+            }, 5000);
+        }
+        
+        // Mostrar mensaje de éxito
+        function mostrarExito(mensaje) {
+            const exitoElement = document.createElement('div');
+            exitoElement.style.cssText = `
+                background: #e8f5e8;
+                color: #2e7d32;
+                padding: 15px;
+                border-radius: 5px;
+                margin: 15px 0;
+                border-left: 4px solid #2e7d32;
+                font-weight: bold;
+            `;
+            exitoElement.textContent = mensaje;
+            
+            document.querySelector('form').insertBefore(exitoElement, document.querySelector('.btn-submit'));
+            
+            // Auto-remover después de 5 segundos
+            setTimeout(() => {
+                if (exitoElement.parentNode) {
+                    exitoElement.remove();
+                }
+            }, 5000);
+        }
+        
+        // Verificar si hay cupo disponible en los talleres seleccionados
+        function verificarCupos(talleresIds) {
+            return talleresIds.every(tallerId => {
+                const taller = talleres.find(t => t.id === tallerId);
+                return taller && taller.inscritos < taller.cupo;
+            });
+        }
+        
+        // Actualizar cupos después del registro
+        function actualizarCupos(talleresIds) {
+            talleresIds.forEach(tallerId => {
+                const taller = talleres.find(t => t.id === tallerId);
+                if (taller && taller.inscritos < taller.cupo) {
+                    taller.inscritos++;
+                }
+            });
+        }
+        
+        // Generar constancia
+        function generarConstancia(datos) {
+            document.getElementById('cert-nombre').textContent = datos.estudiante.nombre;
+            document.getElementById('cert-folio').textContent = 'SIM-' + Date.now();
+            
+            // Llenar talleres
+            const talleresList = document.getElementById('cert-talleres');
+            talleresList.innerHTML = '';
+            datos.talleresSeleccionados.forEach(tallerId => {
+                const taller = talleres.find(t => t.id === tallerId);
+                if (taller) {
+                    const li = document.createElement('li');
+                    li.textContent = `• ${taller.nombre}`;
+                    talleresList.appendChild(li);
+                }
+            });
+            
+            // Mostrar constancia
+            document.getElementById('certificate').style.display = 'block';
+            
+            // Desplazar hacia la constancia
+            document.getElementById('certificate').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Manejo del envío del formulario
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Limpiar mensajes anteriores
+            const errorAnterior = document.getElementById('error-mensaje');
+            if (errorAnterior) {
+                errorAnterior.remove();
+            }
+            
+            // Ocultar constancia si estaba visible
+            document.getElementById('certificate').style.display = 'none';
+            
+            // Obtener datos del formulario
+            const formData = new FormData(this);
+            const talleresSeleccionados = Array.from(document.querySelectorAll('input[name="talleres"]:checked'))
+                .map(cb => parseInt(cb.value));
+            
+            // Validaciones
+            if (talleresSeleccionados.length !== 2) {
+                mostrarError('Debes seleccionar exactamente 2 talleres.');
+                return;
+            }
+            
+            // Verificar que los talleres seleccionados sigan disponibles
+            if (!verificarCupos(talleresSeleccionados)) {
+                mostrarError('Uno o más talleres seleccionados ya no están disponibles. Por favor, selecciona otros talleres.');
+                cargarTalleres(); // Recargar lista actualizada
+                return;
+            }
+            
+            // Verificar si la matrícula ya está registrada
+            const matricula = formData.get('matricula');
+            if (estudiantesRegistrados.some(est => est.matricula === matricula)) {
+                mostrarError('Esta matrícula ya está registrada en el sistema.');
+                return;
+            }
+            
+            // Preparar datos para enviar
+            const datosRegistro = {
+                estudiante: {
+                    nombre: formData.get('nombre'),
+                    matricula: matricula,
+                    carrera: formData.get('carrera'),
+                    semestre: parseInt(formData.get('semestre')),
+                    email: formData.get('email'),
+                    telefono: formData.get('telefono'),
+                    fecha: formData.get('fecha'),
+                    firma: formData.get('firma')
+                },
+                talleresSeleccionados: talleresSeleccionados,
+                fechaRegistro: new Date().toISOString()
+            };
+            
+            // Mostrar loading
+            const submitBtn = document.querySelector('.btn-submit');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Registrando...';
+            submitBtn.disabled = true;
+            
+            // Simular envío al servidor
+            setTimeout(() => {
+                // Registrar estudiante
+                estudiantesRegistrados.push(datosRegistro);
+                localStorage.setItem('estudiantesSimposio', JSON.stringify(estudiantesRegistrados));
+                totalInscritos++;
+                
+                // Actualizar cupos
+                actualizarCupos(talleresSeleccionados);
+                
+                // Mostrar mensaje de éxito
+                mostrarExito('¡Registro exitoso! Tu constancia ha sido generada.');
+                
+                // Generar constancia
+                generarConstancia(datosRegistro);
+                
+                // Limpiar formulario
+                this.reset();
+                document.getElementById('fecha').valueAsDate = new Date();
+                
+                // Recargar talleres para actualizar cupos
+                cargarTalleres();
+                
+                // Restaurar botón
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 1500);
+        });
+        
+        // Cargar talleres cuando la página se carga
+        document.addEventListener('DOMContentLoaded', function() {
+            inicializarInscritos();
+            cargarTalleres();
+            document.getElementById('fecha').valueAsDate = new Date();
+        });
+    </script>
+</body>
+</html>
