@@ -1,0 +1,10 @@
+proyecto/
+├── frontend/
+│   └── registro.html
+├── backend/
+│   ├── server.js
+│   ├── package.json
+│   ├── routes/
+│   │   └── registro.js
+│   └── database/
+│       └── database.js
